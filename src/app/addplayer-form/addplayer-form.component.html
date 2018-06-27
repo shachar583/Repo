@@ -1,0 +1,64 @@
+<form [formGroup]="form" (ngSubmit)="addItem()">
+<div class="container-fluid">
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <label for="player">Player name</label>
+                    <input type="text" class="form-control required" id="player" placeholder="Messi" formControlName="name">
+                    <div class="field-validation-valid text-danger" *ngIf="form.get('name').touched && form.get('name').invalid">{{requiredValidation}}</div>
+                </div>
+  
+                <div class="col-sm-4 form-group">
+                    <label for="age">Age</label>
+                    <input type="number" class="form-control" id="age" placeholder="30" formControlName="age">
+                    <div class="field-validation-valid text-danger" *ngIf="(age.touched || age.dirty) && age.invalid">
+                        <div class="field-validation-valid text-danger" *ngIf="age.errors.min || age.errors.max">{{ageValidation}}</div>
+                        <div class="field-validation-valid text-danger" *ngIf="age.errors.required">{{requiredValidation}}</div>
+                    </div>
+                </div>
+  
+                <div class="col-sm-4 form-group">
+                    <label for="position">Position</label>
+                    <select class="form-control" id="position"  formControlName="pos">
+                        <option *ngFor="let pos of Position.options();">
+                            {{pos}}
+                        </option>
+                        <option value="" disabled selected></option>
+                    </select>
+                    <div class="field-validation-valid text-danger" *ngIf="pos.touched && pos.invalid">{{requiredValidation}}</div>
+                </div>
+            </div>
+  
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <label for="team">Football club</label>
+                    <input type="text" class="form-control" id="team" placeholder="FCBarcelona"  formControlName="team">
+                    <div *ngIf="team.touched && team.invalid" class="field-validation-valid text-danger">{{requiredValidation}}</div>
+                </div>
+  
+                <div class="col-sm-4 form-group">
+                    <label for="league">League</label>
+                    <input type="text" class="form-control" id="league" placeholder="LaLiga"  formControlName="league">
+                    <div class="field-validation-valid text-danger" *ngIf="(league.touched && league.invalid)">{{requiredValidation}}</div>
+                </div>
+  
+                <div class="col-sm-4 form-group">
+                    <label for="numOfGoals">Goals scored</label>
+                    <input type="number" class="form-control" id="numOfGoals" placeholder="45"  formControlName="numOfGoals">
+                    <div class="field-validation-valid text-danger" *ngIf="(numOfGoals.touched || numOfGoals.dirty) && numOfGoals.invalid">
+                        <div class="field-validation-valid text-danger" *ngIf="numOfGoals.errors.required">{{requiredValidation}}</div>
+                        <div class="field-validation-valid text-danger" *ngIf="numOfGoals.errors.min">{{numOfGoalsValidation}}</div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-block btn-primary" [disabled]="!form.valid || update">Add item</button><br />
+            <div class="text-center">
+                <button type="button" class="btn btn-group btn-primary" (click)="updateItem()" id="updateBtn" *ngIf="update">Update Item</button>&nbsp;
+                <button type="button" class="btn btn-group btn-primary" (click)="resetForm()">Clear Fields</button>
+            </div>
+        </div>
+    </div>
+  </div>
+</form> 
+<br><br><br>

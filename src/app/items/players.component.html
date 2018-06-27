@@ -1,0 +1,52 @@
+<!-- Search by filter -->
+<div class="pad-top container">
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label for="fil">Choose filter</label><br />
+                <select class="form-control" #filterSelect>
+                    <option value="name">Name</option>
+                    <option value="age">Age</option>
+                    <option value="position">Position</option>
+                    <option value="team">Football club</option>
+                    <option value="league">League</option>
+                    <option value="goals">Goals scored</option>
+                </select>
+            </div>
+            <div class="col-sm-8 form-group">
+                <label for="fil">Filter</label>
+                <input type="text" class="form-control" id="search" placeholder="filter" [(ngModel)]="filvalue" #fil>
+            </div>
+        </div>
+    </div><br><br>    
+
+<!-- data table -->
+<div class="container pad-top">
+  <div class="row">
+      <div class="table-responsive">
+          <table class="table table-hover" id="stats">
+              <thead>
+                  <tr>
+                      <th>Name <span class="glyphicon glyphicon-sort align-right hover" (click)="sort(SortMethods.name)"></span></th>
+                      <th>Age <span class="glyphicon glyphicon-sort align-right hover" (click)="sort(SortMethods.age)"></span></th>
+                      <th>Position <span class="glyphicon glyphicon-sort align-right hover" (click)="sort(SortMethods.pos)"></span></th>
+                      <th>Football club <span class="glyphicon glyphicon-sort align-right hover" (click)="sort(SortMethods.team)"></span></th>
+                      <th>League <span class="glyphicon glyphicon-sort align-right hover" (click)="sort(SortMethods.league)"></span></th>
+                      <th>Goals scored<span class="glyphicon glyphicon-sort align-right hover" (click)="sort(SortMethods.goals)"></span></th>
+                  </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let player of (players | filterData: filterSelect.value : filvalue)" (click)="getFieldsFromTable(player,$event)">
+                    <td>{{player.name}}</td>
+                    <td>{{player.age}}</td>
+                    <td>{{player.pos}}</td>
+                    <td>{{player.team}}</td>
+                    <td>{{player.league}}</td>
+                    <td>{{player.numOfGoals}}</td>
+                    <td><button id='del{{player.id}}"' class='btn btn-primary glyphicon glyphicon-trash' (click)="remove(player,$event)"></button></td>
+                </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
